@@ -1,0 +1,460 @@
+/* =========================================================
+ * 全局暗色科技风样式：与首页参考图保持一致
+ * - 主色：深蓝 #0a1430 / #0e1a3a
+ * - 强调：青绿渐变 #22d3ee / #5eead4
+ * - 文本：浅灰 #cbd5e1 / #94a3b8
+ * =======================================================*/
+:root {
+  --bg-base: #050b1a;
+  --bg-card: rgba(14, 26, 58, 0.55);
+  --bg-card-hover: rgba(20, 36, 78, 0.75);
+  --border-cyan: rgba(34, 211, 238, 0.45);
+  --border-cyan-soft: rgba(34, 211, 238, 0.18);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-strong: #f8fafc;
+  --accent-cyan: #22d3ee;
+  --accent-cyan-2: #5eead4;
+  --accent-blue: #3b82f6;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --success: #34d399;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+body {
+  /* 背景光晕：与首页图片一致 */
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(34, 211, 238, 0.18), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(59, 130, 246, 0.12), transparent 60%),
+    var(--bg-base);
+}
+
+/* 覆盖 Element Plus 主题：让卡片、菜单、按钮贴合暗色风 */
+.el-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-cyan-soft) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(8px);
+}
+.el-table {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+/* 数据单元格 td:穿透默认白底,避免「白底+浅字」看不清 */
+.el-table tr,
+.el-table th.el-table__cell,
+.el-table td.el-table__cell {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border-cyan-soft) !important;
+}
+/* 斑马纹表格:偶数行给一个更深的底色,提升可读性 */
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: rgba(34, 211, 238, 0.04) !important;
+}
+.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+  background: var(--bg-card-hover) !important;
+}
+.el-table .el-table__empty-block,
+.el-table .el-table__empty-text {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+}
+/* 表格内边框(深色+亮色)穿透,跟随暗色主题 */
+.el-table--border::after,
+.el-table--border::before,
+.el-table__inner-wrapper::before {
+  background-color: var(--border-cyan-soft) !important;
+}
+.el-table__border-line {
+  background-color: var(--border-cyan-soft) !important;
+}
+.el-button--primary {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-2)) !important;
+  border: none !important;
+  color: #062a2e !important;
+  font-weight: 600 !important;
+}
+.el-button--primary:hover {
+  opacity: 0.9;
+}
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select .el-input__wrapper {
+  background: rgba(10, 20, 48, 0.6) !important;
+  box-shadow: inset 0 0 0 1px var(--border-cyan-soft) !important;
+  color: var(--text-primary) !important;
+}
+.el-dialog {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-cyan) !important;
+  backdrop-filter: blur(12px);
+}
+/* 弹窗标题/正文文字跟随暗色主题。
+   之前 .el-dialog 只改了背景(深蓝半透明),标题仍用 Element Plus 默认的
+   rgb(48,49,51) 深灰 —— 落在深色背景上对比度只有 1.45:1,几乎看不见。
+   这条把所有弹窗(报告页导出、工作台、模板编辑…)的标题/正文一并修正。*/
+.el-dialog__title,
+.el-dialog__body {
+  color: var(--text-primary) !important;
+}
+.el-dialog__headerbtn .el-dialog__close {
+  color: var(--text-secondary) !important;
+}
+.el-dialog__headerbtn:hover .el-dialog__close {
+  color: var(--text-primary) !important;
+}
+/* 固定宽度(如 PPT 导出弹窗的 1080px)在窄屏会横向溢出,
+   限制成视口宽度的 95%,至少不会把页面撑出横向滚动条。*/
+.el-dialog {
+  max-width: 95vw;
+}
+.el-drawer {
+  background: var(--bg-card) !important;
+  border-left: 1px solid var(--border-cyan) !important;
+}
+.el-drawer__header,
+.el-drawer__title,
+.el-drawer__body {
+  color: var(--text-primary) !important;
+}
+.el-pagination {
+  color: var(--text-secondary) !important;
+}
+.el-pagination button {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+}
+.el-tag {
+  border: none !important;
+}
+.el-tag.el-tag--success {
+  background: rgba(52, 211, 153, 0.18) !important;
+  color: var(--success) !important;
+}
+.el-tag.el-tag--warning {
+  background: rgba(251, 191, 36, 0.18) !important;
+  color: var(--warn) !important;
+}
+.el-tag.el-tag--info {
+  background: rgba(148, 163, 184, 0.18) !important;
+  color: var(--text-secondary) !important;
+}
+.el-tag.el-tag--danger {
+  background: rgba(248, 113, 113, 0.18) !important;
+  color: var(--danger) !important;
+}
+
+/* 通用工具类 */
+.page {
+  padding: 24px 32px;
+  min-height: calc(100vh - 64px);
+}
+.cyan-card {
+  background: linear-gradient(145deg, rgba(34, 211, 238, 0.12), rgba(94, 234, 212, 0.05));
+  border: 1px solid var(--border-cyan);
+  border-radius: 12px;
+  padding: 18px;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+.cyan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 40%, rgba(34, 211, 238, 0.18) 50%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.cyan-card:hover::before {
+  opacity: 1;
+}
+.cyan-title {
+  color: var(--accent-cyan-2);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.dim {
+  color: var(--text-secondary);
+}
+.h1-title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 主布局：左侧导航 + 右侧内容 */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.top-bar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(5, 11, 26, 0.85);
+  border-bottom: 1px solid var(--border-cyan-soft);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+.brand .logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #062a2e;
+  font-weight: 800;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 2px;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.router-link-active {
+  color: var(--accent-cyan-2);
+}
+.nav-links a.router-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -22px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-cyan-2));
+  border-radius: 2px;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 指标卡片 */
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyan-soft);
+  border-radius: 12px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 180px;
+}
+.metric-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(94, 234, 212, 0.1));
+  color: var(--accent-cyan-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.metric-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+.metric-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+/* 三栏工作台布局 */
+.wb-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr 360px;
+  gap: 16px;
+  min-height: calc(100vh - 80px);
+}
+.wb-side,
+.wb-mid,
+.wb-result {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cyan-soft);
+  border-radius: 12px;
+  padding: 16px;
+  overflow-y: auto;
+}
+.wb-section-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 14px 0 8px;
+  letter-spacing: 1px;
+}
+/* 左侧栏对齐：标题、按钮、卡片、多选框统一从同一条左边线开始 */
+.wb-side > .wb-section-title,
+.wb-side > .el-card,
+.wb-side > .el-button,
+.wb-side > .el-checkbox {
+  margin-left: 0;
+}
+.wb-side > .el-button {
+  justify-content: flex-start;
+  padding-left: 0;
+}
+.wb-side > .el-button .el-icon {
+  margin-right: 6px;
+}
+.wb-side > .el-card {
+  width: 100%;
+}
+.wb-side > .el-checkbox {
+  display: flex;
+  width: 100%;
+  margin-right: 0;
+  margin-bottom: 6px;
+}
+.wb-side > .el-checkbox .el-checkbox__label {
+  padding-left: 6px;
+}
+
+/* 解析时间线 */
+.timeline-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+}
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+}
+.timeline-dot.done {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+.timeline-dot.active {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* 报告预览排版 */
+.report-body {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-cyan-soft);
+}
+.report-body h1 {
+  font-size: 28px;
+  color: var(--text-strong);
+}
+.report-body h2 {
+  color: var(--accent-cyan-2);
+  border-left: 3px solid var(--accent-cyan);
+  padding-left: 10px;
+  margin-top: 24px;
+}
+.report-body p {
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+/* 状态按钮组 */
+.status-pills {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--accent-cyan-2);
+  font-size: 12px;
+  border: 1px solid var(--border-cyan-soft);
+}
+.status-pill.done {
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--success);
+}
+.status-pill.pending {
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-secondary);
+}
+
+/* 流程步骤 */
+.flow-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.flow-step {
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid var(--border-cyan);
+  color: var(--accent-cyan-2);
+  font-weight: 600;
+}
+.flow-step.active {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-2));
+  color: #062a2e;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.4);
+}
+.flow-arrow {
+  color: var(--text-secondary);
+  font-size: 20px;
+}
